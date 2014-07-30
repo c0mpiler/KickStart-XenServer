@@ -30,7 +30,7 @@ timezone America/Los_Angeles
 # Authentication
 rootpw --disabled
 user ubuntu --fullname "Ubuntu User" --password Asdfqwerty
-user harsha --fullname "Harsha Krishnareddy" --password fosters
+user MySecretUser --fullname "MySecretName" --password MySecretPassword
 # if you want to preset the root password in a public kickstart file, use SHA512crypt e.g.
 # user ubuntu --fullname "Ubuntu User" --iscrypted --password $6$9dC4m770Q1o$FCOvPxuqc1B22HM21M5WuUfhkiQntzMuAV7MY0qfVcvhwNQ2L86PcnDWfjDd12IFxWtRiTuvO/niB0Q3Xpf2I.
 auth --useshadow
