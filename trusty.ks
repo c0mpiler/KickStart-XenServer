@@ -116,10 +116,10 @@ apt-get install -y git htop
 # Adding puppet repositories
 wget https://apt.puppetlabs.com/puppetlabs-release-trusty.deb
 sudo dpkg -i puppetlabs-release-precise.deb
-apt-get update
+apt-get update -y
 
 # Installing puppet
-apt-get install puppet
+apt-get install -y puppet
 #puppet resource service puppet ensure=running enable=true
 #puppet resource cron puppet-agent ensure=present user=root minute=30 command='/usr/bin/puppet agent --onetime --no-daemonize --splay'
 
