@@ -1,5 +1,5 @@
 # Ubuntu 14.04 LTS kickstart for XenServer
-# branch: develop
+# branch: Ubuntu1404
 ##########################################
 
 # Install, not upgrade
