@@ -107,6 +107,10 @@ rm -f /var/cache/apt/*cache.bin
 rm -f /var/lib/apt/lists/*_Packages
 echo .
 
+#force_color_prompt
+sed -i 's,#force_color_prompt=yes,force_color_prompt=yes,g' /home/harsha/.bashrc
+#sed -i 's,#force_color_prompt=yes,force_color_prompt=yes,g' /home/ubuntu/.bashrc
+
 # re-configure ssh-server
 dpkg-reconfigure openssh-server
 
