@@ -1,4 +1,6 @@
 XenServer-Ubuntu1404
 ====================
 
-My KickStart scripts for Ubuntu 14.04 server on XenServer
+My KickStart scripts for XenServer 6.2
+
+Check branches :)
