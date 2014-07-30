@@ -84,18 +84,18 @@ echo .
 echo "ubuntu0" > /etc/hostname
 echo .
 cat > /etc/hosts << EOF
-127.0.0.1   localhost ubuntu0 ubuntu0.lan localhost4.localdomain4
-::1         localhost ubuntu0 localhost6 localhost6.localdomain6
+127.0.0.1   localhost ubuntu0
+::1         localhost ubuntu0
 
 EOF
 echo .
 
 # utility scripts
 echo -n "Utility scripts"
-wget -O /opt/domu-hostname.sh https://github.com/frederickding/xenserver-kickstart/raw/develop/opt/domu-hostname.sh
+wget -O /opt/domu-hostname.sh https://raw.githubusercontent.com/c0mpiler/KickStart-XenServer/master/opt/domu-hostname.sh
 chmod +x /opt/domu-hostname.sh
 echo .
-wget -O /opt/generate-sshd-keys.sh https://github.com/frederickding/xenserver-kickstart/raw/develop/opt/generate-sshd-keys.sh
+wget -O /opt/generate-sshd-keys.sh https://raw.githubusercontent.com/c0mpiler/KickStart-XenServer/master/opt/generate-sshd-keys.sh
 chmod +x /opt/generate-sshd-keys.sh
 echo .
 
@@ -106,6 +106,22 @@ rm -f /var/cache/apt/archives/*.deb
 rm -f /var/cache/apt/*cache.bin
 rm -f /var/lib/apt/lists/*_Packages
 echo .
+
+# re-configure ssh-server
+dpkg-reconfigure openssh-server
+
+#install a few required packages
+apt-get install -y git htop 
+
+# Adding puppet repositories
+wget https://apt.puppetlabs.com/puppetlabs-release-trusty.deb
+sudo dpkg -i puppetlabs-release-precise.deb
+apt-get update
+
+# Installing puppet
+apt-get install puppet
+#puppet resource service puppet ensure=running enable=true
+#puppet resource cron puppet-agent ensure=present user=root minute=30 command='/usr/bin/puppet agent --onetime --no-daemonize --splay'
 
 # fix boot for older pygrub/XenServer
 # you should comment out this entire section if on XenServer Creedence/Xen 4.4
