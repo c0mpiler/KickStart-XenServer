@@ -109,7 +109,8 @@ echo .
 
 #force_color_prompt
 sed -i 's,#force_color_prompt=yes,force_color_prompt=yes,g' /home/harsha/.bashrc
-#sed -i 's,#force_color_prompt=yes,force_color_prompt=yes,g' /home/ubuntu/.bashrc
+sed -i 's,#force_color_prompt=yes,force_color_prompt=yes,g' /home/ubuntu/.bashrc
+sed -i 's,#force_color_prompt=yes,force_color_prompt=yes,g' /root/.bashrc
 
 # re-configure ssh-server
 dpkg-reconfigure openssh-server
