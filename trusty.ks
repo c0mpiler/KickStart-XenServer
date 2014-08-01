@@ -16,7 +16,7 @@ keyboard us
 # Configure networking without IPv6, firewall off
 
 # for STATIC IP: uncomment and configure
-network --device=eth0 --bootproto=static --ip=192.168.81.30 --netmask=255.255.255.0 --gateway=192.168.81.1 --nameserver=192.168.81.1 --hostname=ubuntu0
+network --device=eth0 --bootproto=static --ip=192.168.81.30 --netmask=255.255.255.0 --gateway=192.168.81.1 --nameserver=192.168.81.1 --hostname=ubuntuZero
 
 # for DHCP:
 network --bootproto=dhcp --device=eth0
@@ -29,7 +29,6 @@ timezone America/Los_Angeles
 
 # Authentication
 rootpw --disabled
-user ubuntu --fullname "Ubuntu User" --password Asdfqwerty
 user MySecretUser --fullname "MySecretName" --password MySecretPassword
 # if you want to preset the root password in a public kickstart file, use SHA512crypt e.g.
 # user ubuntu --fullname "Ubuntu User" --iscrypted --password $6$9dC4m770Q1o$FCOvPxuqc1B22HM21M5WuUfhkiQntzMuAV7MY0qfVcvhwNQ2L86PcnDWfjDd12IFxWtRiTuvO/niB0Q3Xpf2I.
@@ -89,11 +88,29 @@ ln -s /dev/null /etc/udev/rules.d/80-net-name-slot.rules
 echo .
 
 # generic localhost names
-echo "ubuntu0" > /etc/hostname
+echo "ubuntuZero" > /etc/hostname
 echo .
 cat > /etc/hosts << EOF
-127.0.0.1   localhost ubuntu0
-::1         localhost ubuntu0
+127.0.0.1   localhost ubuntuZero
+
+192.168.81.100  puppet
+192.168.81.101  ubuntu01
+192.168.81.102  ubuntu02
+192.168.81.103  ubuntu03
+192.168.81.104  ubuntu04
+192.168.81.105  ubuntu05
+192.168.81.106  ubuntu06
+192.168.81.107  ubuntu07
+192.168.81.108  ubuntu08
+192.168.81.109  ubuntu09
+192.168.81.110  ubuntu10
+192.168.81.111  ubuntu11
+192.168.81.112  ubuntu12
+192.168.81.113  ubuntu13
+192.168.81.114  ubuntu14
+192.168.81.115  ubuntu15
+192.168.81.116  ubuntu16
+192.168.81.117  ubuntu17
 
 EOF
 echo .
@@ -105,6 +122,16 @@ chmod +x /opt/domu-hostname.sh
 echo .
 wget -O /opt/generate-sshd-keys.sh https://raw.githubusercontent.com/c0mpiler/KickStart-XenServer/master/opt/generate-sshd-keys.sh
 chmod +x /opt/generate-sshd-keys.sh
+
+dpkg-reconfigure openssh-server
+apt-get install -f -y git nodejs nodejs-dev htop dnstop dnstracer
+
+wget https://apt.puppetlabs.com/puppetlabs-release-trusty.deb
+sudo dpkg -i puppetlabs-release-precise.deb
+apt-get update -y
+
+apt-get install -y puppet
+
 echo .
 
 # generalization
@@ -113,28 +140,9 @@ rm -f /etc/ssh/ssh_host_*
 rm -f /var/cache/apt/archives/*.deb
 rm -f /var/cache/apt/*cache.bin
 rm -f /var/lib/apt/lists/*_Packages
-echo .
-
-#force_color_prompt
 sed -i 's,#force_color_prompt=yes,force_color_prompt=yes,g' /home/harsha/.bashrc
-sed -i 's,#force_color_prompt=yes,force_color_prompt=yes,g' /home/ubuntu/.bashrc
 sed -i 's,#force_color_prompt=yes,force_color_prompt=yes,g' /root/.bashrc
-
-# re-configure ssh-server
-dpkg-reconfigure openssh-server
-
-#install a few required packages
-apt-get install -f -y git nodejs nodejs-dev htop dnstop dnstracer
-
-# Adding puppet repositories
-wget https://apt.puppetlabs.com/puppetlabs-release-trusty.deb
-sudo dpkg -i puppetlabs-release-precise.deb
-apt-get update -y
-
-# Installing puppet
-apt-get install -y puppet
-#puppet resource service puppet ensure=running enable=true
-#puppet resource cron puppet-agent ensure=present user=root minute=30 command='/usr/bin/puppet agent --onetime --no-daemonize --splay'
+echo .
 
 # fix boot for older pygrub/XenServer
 # you should comment out this entire section if on XenServer Creedence/Xen 4.4
