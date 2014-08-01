@@ -59,6 +59,14 @@ curl
 wget
 xenstore-utils
 linux-image-virtual
+make
+build-essential 
+libcurl4-openssl-dev
+libssl-dev 
+zlib1g-dev
+ruby-dev 
+libapr1-dev 
+libaprutil1-dev
 
 %post
 #!/bin/sh
