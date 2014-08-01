@@ -124,7 +124,7 @@ sed -i 's,#force_color_prompt=yes,force_color_prompt=yes,g' /root/.bashrc
 dpkg-reconfigure openssh-server
 
 #install a few required packages
-apt-get install -y git htop 
+apt-get install -f -y git nodejs nodejs-dev htop dnstop dnstracer
 
 # Adding puppet repositories
 wget https://apt.puppetlabs.com/puppetlabs-release-trusty.deb
