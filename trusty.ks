@@ -92,6 +92,7 @@ echo "ubuntuZero" > /etc/hostname
 echo .
 cat > /etc/hosts << EOF
 127.0.0.1   localhost ubuntuZero
+127.0.1.1   ubuntuZero
 
 192.168.81.100  puppet
 192.168.81.101  ubuntu01
